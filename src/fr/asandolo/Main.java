@@ -27,6 +27,7 @@ public class Main {
        m.generate();
        m.generate();       
        m.generate();
+       m.generate();
        m.affiche();
        
        do{
