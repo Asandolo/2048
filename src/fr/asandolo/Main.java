@@ -21,6 +21,7 @@ public class Main {
        m.setval(2, 0, 0);
        System.out.println(" ");
        m.affiche();
+        System.out.println("test");
     }
     
 }
