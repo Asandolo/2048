@@ -36,18 +36,25 @@ public class Matrice{
             System.out.println(" ");
         }
     }
+   
+    private void rotate(int angle) {
+        
+
+        
+        
+    }
     
     private void setval(int x ,int ligne, int colone){
         this.mat[ligne][colone] = x;
     }
     
     
-    public void droite(){
+    public void gauche(){
         System.out.println("Droite !");
     }
     
-    public void gauche(){
-        System.out.println("Gauche !");
+    public void droit(){
+        rotate(180);
     }
     
     public void haut(){
@@ -59,16 +66,15 @@ public class Matrice{
     }
     
     public boolean isComplete(){
-        int x = 0;
         for (int i = 0; i < this.dim; i++) {
             for (int j = 0; j < this.dim; j++) {
                  if(this.mat[i][j] == 0){
-                    x++; 
+                  return false; 
                  }
             }
         }
         
-        return (x == 0)? true : false;
+        return true;
     
     }
     
