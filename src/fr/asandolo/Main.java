@@ -22,6 +22,7 @@ public class Main {
        System.out.println(" ");
        m.affiche();
         System.out.println("test");
+        System.out.println("yolod");
     }
     
 }
