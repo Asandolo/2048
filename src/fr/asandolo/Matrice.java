@@ -50,11 +50,10 @@ public class Matrice{
     
     
     public void gauche(){
-        System.out.println("Droite !");
+        System.out.println("Gauche !");
     }
     
-    public void droit(){
-        rotate(180);
+    public void droite(){
     }
     
     public void haut(){
