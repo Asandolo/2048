@@ -41,12 +41,6 @@ public class Matrice{
         }
     }
    
-    private void rotate() {
-        
-
-        
-        
-    }
     
     public void setval(int x ,int ligne, int colone){
         this.mat[ligne][colone] = x;
@@ -73,15 +67,53 @@ public class Matrice{
     }
     
     public void bas(){
-        System.out.println("Gauche !");
+        for (int i = 0; i < this.dim-1; i++) {
+            for (int j = 0; j < this.dim; j++) {
+                if(this.mat[i+1][j] == 0){
+                    this.mat[i+1][j] = this.mat[i][j];
+                    this.mat[i][j]=0;
+                }
+                
+                if(this.mat[i+1][j] == this.mat[i][j]){
+                    this.mat[i+1][j] = this.mat[i][j]*2;
+                    this.mat[i][j]=0;
+                }
+            }
+        }
+
     }
     
     public void gauche(){
-        System.out.println("Haut !");
+        
+         for (int j = this.dim-1; j < 0; j++) {
+            for (int i = 0; i < this.dim; i++) {
+                if(this.mat[i][j-1] == 0){
+                    this.mat[i][j-1] = this.mat[i][j];
+                    this.mat[i][j]=0;
+                }
+                
+                if(this.mat[i][j-1] == this.mat[i][j]){
+                    this.mat[i][j-1] = this.mat[i][j]*2;
+                    this.mat[i][j]=0;
+                }
+            }
+        }
     }
     
     public void droite(){
-        System.out.println("Bas !");
+         for (int j = 0; j < this.dim-1; j++) {
+            for (int i = 0; i < this.dim; i++) {
+                if(this.mat[i][j+1] == 0){
+                    this.mat[i][j+1] = this.mat[i][j];
+                    this.mat[i][j]=0;
+                }
+                
+                if(this.mat[i][j+1] == this.mat[i][j]){
+                    this.mat[i][j+1] = this.mat[i][j]*2;
+                    this.mat[i][j]=0;
+                }
+            }
+        } 
     }
     
     public boolean isComplete(){
