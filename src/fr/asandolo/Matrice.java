@@ -27,6 +27,10 @@ public class Matrice{
         }
     }
     
+    public int getDim(){
+        return this.dim;
+    }
+    
     //TODO A metre en String ASAP
     public void affiche(){
         for (int i = 0; i < this.dim; i++) {
@@ -37,30 +41,46 @@ public class Matrice{
         }
     }
    
-    private void rotate(int angle) {
+    private void rotate() {
         
 
         
         
     }
     
-    private void setval(int x ,int ligne, int colone){
+    public void setval(int x ,int ligne, int colone){
         this.mat[ligne][colone] = x;
     }
     
     
-    public void gauche(){
-        System.out.println("Gauche !");
-    }
-    
-    public void droite(){
-    }
-    
     public void haut(){
-        System.out.println("Haut !");
+        
+        for (int i = this.dim-1; i > 0; i--) {
+            for (int j = 0; j < this.dim; j++) {
+                if(this.mat[i-1][j] == 0){
+                    this.mat[i-1][j] = this.mat[i][j];
+                    this.mat[i][j]=0;
+                }
+                
+                if(this.mat[i-1][j] == this.mat[i][j]){
+                    this.mat[i-1][j] = this.mat[i][j]*2;
+                    this.mat[i][j]=0;
+                }
+            }
+        }
+
+        
     }
     
     public void bas(){
+        System.out.println("Gauche !");
+    }
+    
+    public void gauche(){
+        System.out.println("Haut !");
+    }
+    
+    public void droite(){
         System.out.println("Bas !");
     }
     
@@ -82,15 +102,12 @@ public class Matrice{
         int lign, col, x, r;
         
         while(b == true){
-           lign = (int)( Math.random()*( 3 - 0 + 1 ) ) + 0;
-           col =  (int)( Math.random()*( 3 - 0 + 1 ) ) + 0;
+           lign = (int)( Math.random()*( this.dim-1 - 0 + 1 ) ) + 0;
+           col =  (int)( Math.random()*( this.dim-1 -0 + 1 ) ) + 0;
            
            r = (int)( Math.random()*( 2 - 1 + 1 ) ) + 1;
-           if(r == 1){
-               x = 2;
-           }else{
-               x = 4;
-           }
+          x = (r == 1)? 2: 4;
+           
            
                    
            if(this.isComplete() == false){
