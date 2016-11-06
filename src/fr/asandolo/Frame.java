@@ -18,13 +18,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
 /**
  *
- * @author user
+ * @author Alexandre SANDOLO ft BARDON Nathan
  */
 public class Frame extends JFrame {
     
@@ -32,11 +33,20 @@ public class Frame extends JFrame {
     private JPanel p,btns;
     private Content c;
     private JButton btn_triche,btn_reset,btn_quitte;
+    private JLabel lbl_win,lbl_score;
     
     public Frame(Matrice m){
         this.matrice = m;
         
         BtnListener b = new BtnListener();
+        
+        this.lbl_win = new JLabel("Gagné !");
+        this.lbl_win.setVisible(false);
+        this.lbl_win.setForeground(Color.red);
+        
+        this.lbl_score = new JLabel();
+        this.lbl_score.setForeground(new Color(100,255,100));
+        
         
         this.btn_triche = new JButton("Trichez");
         this.btn_triche.setActionCommand("triche");
@@ -51,9 +61,11 @@ public class Frame extends JFrame {
         this.btn_quitte.addActionListener(b);
         
         this.btns = new JPanel();
+        this.btns.add(this.lbl_win);
         this.btns.add(this.btn_triche);
         this.btns.add(this.btn_reset);
         this.btns.add(this.btn_quitte);
+        this.btns.add(this.lbl_score);
         
         this.c = new Content();
         
@@ -102,6 +114,7 @@ public class Frame extends JFrame {
                         
                 }
                 matrice.affiche();
+                matrice.save();
                 c.repaint();
             }
         });
@@ -191,14 +204,25 @@ public class Frame extends JFrame {
             //Draw numbers
             g.setFont(new Font("Arial", Font.PLAIN, 18));
             g.setColor(new Color(100, 100, 255));
+            int margin_top = case_height/2 + g.getFontMetrics().getHeight()/2;
             
             for(int x = 0; x < nbs.length; x++){
                 for(int y = 0; y < nbs[x].length; y++){
-                    if(nbs[x][y] > 0)
-                        g.drawString(""+nbs[x][y], (int)(case_width*y),
-                            (int)(case_height*(x+1)));
+                    if(nbs[x][y] > 0){
+                        int sw = g.getFontMetrics().stringWidth(""+nbs[x][y]);
+                        int margin_left = case_width/2-sw/2;
+                        
+                        g.drawString(""+nbs[x][y], (int)(case_width*y) +margin_left,
+                            (int)(case_height*x)+margin_top);
+                    }
                 }
             }
+            
+            if(matrice.iswin()){
+                lbl_win.setVisible(true);
+            }
+            
+            lbl_score.setText("Meilleur : "+matrice.getBest());
         }
     }
     

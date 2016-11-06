@@ -5,6 +5,13 @@
  */
 package fr.asandolo;
 
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+
+
 /**
  *
  * @author Alexandre SANDOLO
@@ -12,11 +19,41 @@ package fr.asandolo;
 public class Matrice{
     private final int mat[][];
     private final int dim;
-    
-    public Matrice(int d){
+    private final int win;
+    private int best = 0;
+
+    public Matrice(int d, int w) {
         this.dim = d;
+        this.win = w;
         
         this.mat = new int[d][d];
+    }
+    
+    public void save(){
+        JSONObject o = new JSONObject("{\"score\":0}");
+         if(Files.exists(Main.DATAFILE)){
+           try{
+                String content = new String(Files.readAllBytes(Main.DATAFILE));
+                o = new JSONObject(content);
+           }catch(Exception e){}
+         }
+         
+        if(this.getscore() > o.getInt("score")){
+            o.put("score", this.getscore());
+        }
+        
+        this.best = o.getInt("score");
+         
+        JSONObject save = new JSONObject();
+        save.put("dim", this.dim);
+        save.put("w", this.win);
+        save.put("datas", this.mat);
+        o.put("save", save);
+        try{
+            Files.write(Main.DATAFILE, o.toString().getBytes());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
     
     public void init(){
@@ -25,6 +62,11 @@ public class Matrice{
                 this.mat[i][j] = 0;
             }
         }
+    }
+    
+    
+    public int getBest(){
+        return this.best;
     }
     
     public int getDim(){
@@ -222,10 +264,10 @@ public class Matrice{
     
     }
  
-    public boolean iswin(int w){
+    public boolean iswin(){
         for (int i = 0; i < this.dim; i++) {
             for (int j = 0; j < this.dim; j++) {
-                 if(this.mat[i][j] == w){
+                 if(this.mat[i][j] == this.win){
                   return true; 
                  }
             }
@@ -276,5 +318,13 @@ public class Matrice{
     public int[][] getMatrix(){
         return this.mat;
     }
-        
+    
+    
+    public static Matrice resume(int[][] m, int d, int w){
+        Matrice ret = new Matrice(d,w);
+        for(int x = 0; x<m.length;x++)
+            for(int y = 0; y<m[x].length;y++)
+                ret.setval(m[x][y], x, y);
+        return ret;
+    }
 }
