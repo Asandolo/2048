@@ -35,20 +35,21 @@ public class Matrice{
     public void affiche(){
         for (int i = 0; i < this.dim; i++) {
             for (int j = 0; j < this.dim; j++) {
-                if (this.mat[i][j] == 0) {
+                if (this.mat[i][j] != 0) {
                     System.out.print(this.mat[i][j]+"|");
                 }else{
                     System.out.print(" |");                    
                 }
 
             }
-            System.out.println(" ");
+            System.out.println();
         }
     }
    
     
     public void setval(int x ,int ligne, int colone){
         this.mat[ligne][colone] = x;
+        
     }
     
     
@@ -270,6 +271,10 @@ public class Matrice{
             }
         }
         return s;
+    }
+    
+    public int[][] getMatrix(){
+        return this.mat;
     }
         
 }
