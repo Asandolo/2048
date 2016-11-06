@@ -113,7 +113,6 @@ public class Frame extends JFrame {
                         break;
                         
                 }
-                matrice.affiche();
                 matrice.save();
                 c.repaint();
             }
@@ -159,6 +158,7 @@ public class Frame extends JFrame {
                         matrice.generate();
                         matrice.generate();
                         c.repaint();
+                        matrice.save();
                         break;
                     default:
                         throw new Exception("BTN NON IMPLEMENTE");
