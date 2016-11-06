@@ -20,16 +20,33 @@ public class Main {
        Scanner sc = new Scanner(System.in);
        boolean fq = false;
        char chx = 'A';
-       Matrice m = new Matrice(4);
+       int d,w = 0;
+       
+       
+        System.out.print("Dimention de la matrice:");
+        d =  sc.nextInt();
+        System.out.println(" ");
+        
+        System.out.print("Tuille de fin :");
+        w =  sc.nextInt();
+        System.out.println(" ");
+                
+       
+       
+       Matrice m = new Matrice(d);
        m.init();
+       m.generate();
        m.generate();
        m.affiche();
        
        while(fq == false){
-
+           if (m.iswin(w)) {
+               System.out.println("Gagner !");
+           }
+           System.out.println("Score : "+m.getscore());
             do{
                try{
-                  System.out.println("Choisisez : H = Haut, B = Bas, G = Gauche, D = Droite");
+                  System.out.println("Choisisez : H = Haut, B = Bas, G = Gauche, D = Droite Q = Quiter T= Triche");
                    System.out.print(">");
                   chx = sc.nextLine().charAt(0);
                }catch(Exception e){
@@ -37,25 +54,43 @@ public class Main {
                }
 
 
-            }while(chx != 'D' && chx != 'G' && chx != 'H' && chx != 'B' && chx != 'f');
+            }while(chx != 'D' && chx != 'G' && chx != 'H' && chx != 'B' && chx != 'Q' && chx != 'T');
 
              switch(chx){
-                 case 'H':
+                 case 'H' :
                      m.haut();
                      m.generate();
                      m.affiche();
                      break;
                  case 'B':
                      m.bas();
+                     m.generate();
+                     m.affiche();
                      break;
                  case 'G':
                      m.gauche();
+                     m.generate();
+                     m.affiche();
+                     break;
                  case 'D':
                      m.droite();
+                     m.generate();
+                     m.affiche();
                      break;
-                 case 'f':
+                 case 'Q':
                      fq = true;
-                     break;                     
+                     break;
+                 case 'T':
+                     int a,b;
+                     System.out.println("Quel case voulez vous supprimer ?");
+                     System.out.println("Num ligne :");
+                     a = sc.nextInt();
+                     System.out.println("Num colone ");
+                     b = sc.nextInt();
+                     
+                     m.setval(0, a-1, b-1);
+                     m.affiche();
+                     break;
                  default:
                      System.out.println("Erreur");
                      break;
