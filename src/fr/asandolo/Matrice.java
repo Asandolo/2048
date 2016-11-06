@@ -47,74 +47,108 @@ public class Matrice{
     }
     
     
-    public void haut(){
-        
+    public void dhaut(){
         for (int i = this.dim-1; i > 0; i--) {
             for (int j = 0; j < this.dim; j++) {
                 if(this.mat[i-1][j] == 0){
                     this.mat[i-1][j] = this.mat[i][j];
                     this.mat[i][j]=0;
                 }
-                
-                if(this.mat[i-1][j] == this.mat[i][j]){
-                    this.mat[i-1][j] = this.mat[i][j]*2;
-                    this.mat[i][j]=0;
-                }
-            }
-        }
 
-        
+            }
+        }   
     }
     
-    public void bas(){
+    
+    public void haut(){
+        this.dhaut();
+        for (int i = this.dim-1; i > 0; i--) {
+             for (int j = 0; j < this.dim; j++) {
+                 if(this.mat[i-1][j] == this.mat[i][j]){
+                     this.mat[i-1][j] = this.mat[i][j]*2;
+                     this.mat[i][j]=0;
+                 }
+             }
+         }
+       this.dhaut();
+    }
+    
+    public void dbas(){
         for (int i = 0; i < this.dim-1; i++) {
             for (int j = 0; j < this.dim; j++) {
                 if(this.mat[i+1][j] == 0){
                     this.mat[i+1][j] = this.mat[i][j];
                     this.mat[i][j]=0;
                 }
-                
+            }
+        }
+
+    }
+    
+        public void bas(){
+            this.dbas();
+        for (int i = 0; i < this.dim-1; i++) {
+            for (int j = 0; j < this.dim; j++) {
                 if(this.mat[i+1][j] == this.mat[i][j]){
                     this.mat[i+1][j] = this.mat[i][j]*2;
                     this.mat[i][j]=0;
                 }
             }
         }
+        
+        this.dbas();
 
     }
     
-    public void gauche(){
-        
-         for (int j = this.dim-1; j < 0; j++) {
-            for (int i = 0; i < this.dim; i++) {
-                if(this.mat[i][j-1] == 0){
-                    this.mat[i][j-1] = this.mat[i][j];
-                    this.mat[i][j]=0;
-                }
-                
+    public void dgauche(){
+        for (int j = this.dim-1; j > 0; j--) {
+           for (int i = 0; i < this.dim; i++) {
+               if(this.mat[i][j-1] == 0){
+                   this.mat[i][j-1] = this.mat[i][j];
+                   this.mat[i][j]=0;
+               }
+           }
+       }
+    }
+    
+        public void gauche(){
+            this.dgauche();
+        for (int j = this.dim-1; j > 0; j--) {
+           for (int i = 0; i < this.dim; i++) {
                 if(this.mat[i][j-1] == this.mat[i][j]){
                     this.mat[i][j-1] = this.mat[i][j]*2;
                     this.mat[i][j]=0;
                 }
-            }
-        }
+           }
+       }
+        this.dgauche();
+    }
+   
+    public void ddroite(){
+        for (int j = 0; j < this.dim-1; j++) {
+           for (int i = 0; i < this.dim; i++) {
+               if(this.mat[i][j+1] == 0){
+                   this.mat[i][j+1] = this.mat[i][j];
+                   this.mat[i][j]=0;
+               }
+           }
+       }
     }
     
     public void droite(){
-         for (int j = 0; j < this.dim-1; j++) {
-            for (int i = 0; i < this.dim; i++) {
-                if(this.mat[i][j+1] == 0){
-                    this.mat[i][j+1] = this.mat[i][j];
-                    this.mat[i][j]=0;
-                }
-                
+        this.ddroite();
+        for (int j = 0; j < this.dim-1; j++) {
+           for (int i = 0; i < this.dim; i++) {
                 if(this.mat[i][j+1] == this.mat[i][j]){
                     this.mat[i][j+1] = this.mat[i][j]*2;
                     this.mat[i][j]=0;
                 }
-            }
-        } 
+           }
+       }
+        this.ddroite();
     }
+    
+
     
     public boolean isComplete(){
         for (int i = 0; i < this.dim; i++) {
@@ -126,6 +160,19 @@ public class Matrice{
         }
         
         return true;
+    
+    }
+ 
+    public boolean iswin(int w){
+        for (int i = 0; i < this.dim; i++) {
+            for (int j = 0; j < this.dim; j++) {
+                 if(this.mat[i][j] == w){
+                  return true; 
+                 }
+            }
+        }
+        
+        return false;
     
     }
     
@@ -155,6 +202,16 @@ public class Matrice{
            
         }
            
+    }
+    
+    public int getscore(){
+        int s = 0;
+        for (int i = 0; i < this.dim; i++) {
+            for (int j = 0; j < this.dim; j++) {
+                s=s+this.mat[i][j];
+            }
+        }
+        return s;
     }
         
 }
