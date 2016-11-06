@@ -35,7 +35,12 @@ public class Matrice{
     public void affiche(){
         for (int i = 0; i < this.dim; i++) {
             for (int j = 0; j < this.dim; j++) {
-                System.out.print(this.mat[i][j]+" ");
+                if (this.mat[i][j] == 0) {
+                    System.out.print(this.mat[i][j]+"|");
+                }else{
+                    System.out.print(" |");                    
+                }
+
             }
             System.out.println(" ");
         }
@@ -121,7 +126,7 @@ public class Matrice{
 		this.dbas();
 	}
     
-	private void dgauche(){
+	private void ddroite(){
 		int k,l;
 		for(int i=this.dim-1;i>=0;i--){
 			for(int j=this.dim-1;j>=0;j--){
@@ -143,8 +148,8 @@ public class Matrice{
 		}	
 	}
 	
-	public void gauche(){
-		this.dgauche();
+	public void droite(){
+		this.ddroite();
 		for(int i=this.dim-1;i>=0;i--){
 			for(int j=this.dim-1;j>=0;j--){
 				if(j>0){
@@ -155,10 +160,10 @@ public class Matrice{
 				}
 			}
 		}
-		this.dgauche();
+		this.ddroite();
 	}
    
-	private void ddroite(){
+	private void dgauche(){
 		int k,l;
 		for(int i=0;i<this.dim;i++)
 		{
@@ -186,8 +191,8 @@ public class Matrice{
 		}	
 	}
 	
-	public void droite(){
-		this.ddroite();
+	public void gauche(){
+		this.dgauche();
 		for(int i=0;i<this.dim;i++){
 			for(int j=0;j<this.dim;j++){
 				if(j<this.dim-1){
@@ -198,7 +203,7 @@ public class Matrice{
 				}
 			}
 		}
-		this.ddroite();
+		this.dgauche();
 	}
     
 
