@@ -47,106 +47,159 @@ public class Matrice{
     }
     
     
-    public void dhaut(){
-        for (int i = this.dim-1; i > 0; i--) {
-            for (int j = 0; j < this.dim; j++) {
-                if(this.mat[i-1][j] == 0){
-                    this.mat[i-1][j] = this.mat[i][j];
-                    this.mat[i][j]=0;
-                }
-
-            }
-        }   
-    }
+	private void dhaut(){
+		int k,l;
+		for(int j=0;j<this.dim;j++){
+			for(int i=0;i<this.dim;i++){
+				if(this.mat[i][j]==0){
+					k=i;
+					l=i;
+					while(k<this.dim){
+						if(this.mat[k][j]!=0 && this.mat[l][j]==0){
+							this.mat[l][j]=this.mat[k][j];
+							this.mat[k][j]=0;
+							while(this.mat[l][i]!=0 && l<this.dim-1){
+								l=l+1;
+							}
+						}
+						k=k+1;
+					}
+				}
+			}
+		}	
+	}
+	
+	public void haut(){
+		this.dhaut();
+		for(int j=0;j<this.dim;j++){
+			for(int i=0;i<this.dim;i++){
+				if(i<this.dim-1){
+					if(this.mat[i][j]==this.mat[i+1][j] && this.mat[i][j]!=0){
+						this.mat[i][j]=this.mat[i+1][j]*2;
+						this.mat[i+1][j]=0;
+					}
+				}
+			}
+		}
+		this.dhaut();
+	}
     
-    
-    public void haut(){
-        this.dhaut();
-        for (int i = this.dim-1; i > 0; i--) {
-             for (int j = 0; j < this.dim; j++) {
-                 if(this.mat[i-1][j] == this.mat[i][j]){
-                     this.mat[i-1][j] = this.mat[i][j]*2;
-                     this.mat[i][j]=0;
-                 }
-             }
-         }
-       this.dhaut();
-    }
-    
-    public void dbas(){
-        for (int i = 0; i < this.dim-1; i++) {
-            for (int j = 0; j < this.dim; j++) {
-                if(this.mat[i+1][j] == 0){
-                    this.mat[i+1][j] = this.mat[i][j];
-                    this.mat[i][j]=0;
-                }
-            }
-        }
-
-    }
+        private void dbas(){
+		int k,l;
+		for(int j=this.dim-1;j>=0;j--){
+			for(int i=this.dim-1;i>=0;i--){
+				if(this.mat[i][j]==0){
+					k=i;
+					l=i;
+					while(k>=0){
+						if(this.mat[k][j]!=0 && this.mat[l][j]==0){
+							this.mat[l][j]=this.mat[k][j];
+							this.mat[k][j]=0;
+							while(this.mat[l][i]!=0 && l>0){
+								l=l-1;
+							}
+						}
+						k=k-1;
+					}
+				}
+			}
+		}	
+	}
     
         public void bas(){
-            this.dbas();
-        for (int i = 0; i < this.dim-1; i++) {
-            for (int j = 0; j < this.dim; j++) {
-                if(this.mat[i+1][j] == this.mat[i][j]){
-                    this.mat[i+1][j] = this.mat[i][j]*2;
-                    this.mat[i][j]=0;
-                }
-            }
-        }
-        
-        this.dbas();
-
-    }
+		this.dbas();
+		for(int j=this.dim-1;j>=0;j--){
+			for(int i=this.dim-1;i>0;i--){
+				if(i>0){
+					if(this.mat[i][j]==this.mat[i-1][j] && this.mat[i][j]!=0){
+						this.mat[i][j]=this.mat[i-1][j]*2;
+						this.mat[i-1][j]=0;
+					}
+				}
+			}
+		}
+		this.dbas();
+	}
     
-    public void dgauche(){
-        for (int j = this.dim-1; j > 0; j--) {
-           for (int i = 0; i < this.dim; i++) {
-               if(this.mat[i][j-1] == 0){
-                   this.mat[i][j-1] = this.mat[i][j];
-                   this.mat[i][j]=0;
-               }
-           }
-       }
-    }
-    
-        public void gauche(){
-            this.dgauche();
-        for (int j = this.dim-1; j > 0; j--) {
-           for (int i = 0; i < this.dim; i++) {
-                if(this.mat[i][j-1] == this.mat[i][j]){
-                    this.mat[i][j-1] = this.mat[i][j]*2;
-                    this.mat[i][j]=0;
-                }
-           }
-       }
-        this.dgauche();
-    }
+	private void dgauche(){
+		int k,l;
+		for(int i=this.dim-1;i>=0;i--){
+			for(int j=this.dim-1;j>=0;j--){
+				if(this.mat[i][j]==0){
+					k=j;
+					l=j;
+					while(k>=0){
+						if(this.mat[i][k]!=0 && this.mat[i][l]==0){
+							this.mat[i][l]=this.mat[i][k];
+							this.mat[i][k]=0;
+							while(this.mat[i][l]!=0 && l<this.dim){
+								l=l-1;
+							}
+						}
+						k=k-1;
+					}
+				}
+			}
+		}	
+	}
+	
+	public void gauche(){
+		this.dgauche();
+		for(int i=this.dim-1;i>=0;i--){
+			for(int j=this.dim-1;j>=0;j--){
+				if(j>0){
+					if(this.mat[i][j]==this.mat[i][j-1] && this.mat[i][j]!=0){
+						this.mat[i][j]=this.mat[i][j-1]*2;
+						this.mat[i][j-1]=0;
+					}
+				}
+			}
+		}
+		this.dgauche();
+	}
    
-    public void ddroite(){
-        for (int j = 0; j < this.dim-1; j++) {
-           for (int i = 0; i < this.dim; i++) {
-               if(this.mat[i][j+1] == 0){
-                   this.mat[i][j+1] = this.mat[i][j];
-                   this.mat[i][j]=0;
-               }
-           }
-       }
-    }
-    
-    public void droite(){
-        this.ddroite();
-        for (int j = 0; j < this.dim-1; j++) {
-           for (int i = 0; i < this.dim; i++) {
-                if(this.mat[i][j+1] == this.mat[i][j]){
-                    this.mat[i][j+1] = this.mat[i][j]*2;
-                    this.mat[i][j]=0;
-                }
-           }
-       }
-        this.ddroite();
-    }
+	private void ddroite(){
+		int k,l;
+		for(int i=0;i<this.dim;i++)
+		{
+			for(int j=0;j<this.dim;j++)
+			{
+				if(this.mat[i][j]==0)
+				{
+					k=j;
+					l=j;
+					while(k<this.dim)
+					{
+						if(this.mat[i][k]!=0 && this.mat[i][l]==0)
+						{
+							this.mat[i][l]=this.mat[i][k];
+							this.mat[i][k]=0;
+							while(this.mat[i][l]!=0 && l<this.dim)
+							{
+								l=l+1;
+							}
+						}
+						k=k+1;
+					}
+				}
+			}
+		}	
+	}
+	
+	public void droite(){
+		this.ddroite();
+		for(int i=0;i<this.dim;i++){
+			for(int j=0;j<this.dim;j++){
+				if(j<this.dim-1){
+					if(this.mat[i][j]==this.mat[i][j+1] && this.mat[i][j]!=0){
+						this.mat[i][j]=this.mat[i][j+1]*2;
+						this.mat[i][j+1]=0;
+					}
+				}
+			}
+		}
+		this.ddroite();
+	}
     
 
     
