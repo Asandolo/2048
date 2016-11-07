@@ -5,9 +5,7 @@
  */
 package fr.asandolo;
 
-import java.nio.charset.Charset;
 import java.nio.file.Files;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 

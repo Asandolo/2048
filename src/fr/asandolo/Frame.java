@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Alexandre SANDOLO ft BARDON Nathan
+ * @author Alexandre SANDOLO
  */
 public class Frame extends JFrame {
     
@@ -144,6 +144,7 @@ public class Frame extends JFrame {
                         }
                         matrice.setval(0, line-1, col-1);
                         c.repaint();
+                        matrice.save();
                         
                         break;
                         
@@ -178,7 +179,7 @@ public class Frame extends JFrame {
         
         @Override
         public void paintComponent(Graphics gg){
-            int[][] nbs = matrice.getMatrix();
+            int[][] ma = matrice.getMatrix();
             
             Graphics2D g = (Graphics2D)gg;
             
@@ -192,8 +193,8 @@ public class Frame extends JFrame {
             
             // Draw table
             g.setColor(new Color(255, 100, 100));
-            final int case_width = w/nbs.length;
-            final int case_height = h/nbs.length;
+            final int case_width = w/ma.length;
+            final int case_height = h/ma.length;
             
             for(int i = case_width; i < w; i+= case_width)
                 g.drawLine(i, 0, i, h);
@@ -206,13 +207,13 @@ public class Frame extends JFrame {
             g.setColor(new Color(100, 100, 255));
             int margin_top = case_height/2 + g.getFontMetrics().getHeight()/2;
             
-            for(int x = 0; x < nbs.length; x++){
-                for(int y = 0; y < nbs[x].length; y++){
-                    if(nbs[x][y] > 0){
-                        int sw = g.getFontMetrics().stringWidth(""+nbs[x][y]);
+            for(int x = 0; x < ma.length; x++){
+                for(int y = 0; y < ma[x].length; y++){
+                    if(ma[x][y] > 0){
+                        int sw = g.getFontMetrics().stringWidth(""+ma[x][y]);
                         int margin_left = case_width/2-sw/2;
                         
-                        g.drawString(""+nbs[x][y], (int)(case_width*y) +margin_left,
+                        g.drawString(""+ma[x][y], (int)(case_width*y) +margin_left,
                             (int)(case_height*x)+margin_top);
                     }
                 }
