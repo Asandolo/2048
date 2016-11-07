@@ -93,7 +93,11 @@ public class Frame extends JFrame {
             public void keyReleased(KeyEvent e) {
                 switch(e.getKeyCode()){
                     case KeyEvent.VK_UP:
-                        matrice.haut();
+                        matrice.turnMat();
+                        matrice.turnMat();
+                        matrice.bas();
+                        matrice.turnMat();
+                        matrice.turnMat();
                         matrice.generate();
                         break;
                     
@@ -103,12 +107,20 @@ public class Frame extends JFrame {
                         break;
                         
                     case KeyEvent.VK_LEFT:
-                        matrice.gauche();
+                        matrice.turnMat();
+                        matrice.turnMat();
+                        matrice.turnMat();
+                        matrice.bas();
+                        matrice.turnMat();
                         matrice.generate();
                         break;
                         
                     case KeyEvent.VK_RIGHT:
-                        matrice.droite();
+                        matrice.turnMat();
+                        matrice.bas();
+                        matrice.turnMat();
+                        matrice.turnMat();
+                        matrice.turnMat();
                         matrice.generate();
                         break;
                         
