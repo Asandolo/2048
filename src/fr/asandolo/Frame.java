@@ -172,6 +172,8 @@ public class Frame extends JFrame {
                     default:
                         throw new Exception("BTN NON IMPLEMENTE");
                 }
+                
+                c.requestFocus();
             }catch(Exception ex){
                 ex.printStackTrace();
             }
