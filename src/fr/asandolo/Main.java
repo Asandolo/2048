@@ -63,7 +63,7 @@ public class Main {
             int o = JOptionPane.showConfirmDialog(null, "Voulez vous changez les options ?", "Option", JOptionPane.YES_NO_CANCEL_OPTION);
             switch(o){
                 case 0:
-                    while(d <= 0 && d <= 16){
+                    while(d < 2 || d >= 16){
                         try {
                             String dim = JOptionPane.showInputDialog(null, "Taille de la grille (ex 4 pour 4*4, max 16) :", "Option", JOptionPane.QUESTION_MESSAGE);
                             d = Integer.parseInt(dim);
