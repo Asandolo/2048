@@ -45,7 +45,7 @@ public class Frame extends JFrame {
         this.lbl_win.setForeground(Color.red);
         
         this.lbl_score = new JLabel();
-        this.lbl_score.setForeground(new Color(100,255,100));
+        this.lbl_score.setForeground(new Color(50,205,50));
         
         
         this.btn_triche = new JButton("Tricher");
