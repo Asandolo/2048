@@ -48,7 +48,7 @@ public class Frame extends JFrame {
         this.lbl_score.setForeground(new Color(100,255,100));
         
         
-        this.btn_triche = new JButton("Trichez");
+        this.btn_triche = new JButton("Tricher");
         this.btn_triche.setActionCommand("triche");
         this.btn_triche.addActionListener(b);
         
@@ -93,40 +93,37 @@ public class Frame extends JFrame {
             public void keyReleased(KeyEvent e) {
                 switch(e.getKeyCode()){
                     case KeyEvent.VK_UP:
-                        matrice.turnMat();
-                        matrice.turnMat();
+                        matrice.turnMat(2);
+                        matrice.save();
                         matrice.bas();
-                        matrice.turnMat();
-                        matrice.turnMat();
-                        matrice.generate();
+                        matrice.turnMat(2);
+                        
                         break;
                     
                     case KeyEvent.VK_DOWN:
+                        matrice.save();
                         matrice.bas();
-                        matrice.generate();
                         break;
                         
                     case KeyEvent.VK_LEFT:
-                        matrice.turnMat();
-                        matrice.turnMat();
-                        matrice.turnMat();
+                        matrice.turnMat(3);
+                        matrice.save();
                         matrice.bas();
-                        matrice.turnMat();
-                        matrice.generate();
+                        matrice.turnMat(1);
+                        
                         break;
                         
                     case KeyEvent.VK_RIGHT:
-                        matrice.turnMat();
+                        matrice.turnMat(1);
+                        matrice.save();
                         matrice.bas();
-                        matrice.turnMat();
-                        matrice.turnMat();
-                        matrice.turnMat();
-                        matrice.generate();
+                        matrice.turnMat(3);
                         break;
                         
                 }
-                matrice.save();
+                matrice.saveinfile();
                 c.repaint();
+                matrice.affiche();
             }
         });
         
@@ -156,7 +153,7 @@ public class Frame extends JFrame {
                         }
                         matrice.setval(0, line-1, col-1);
                         c.repaint();
-                        matrice.save();
+                        matrice.saveinfile();
                         
                         break;
                         
@@ -165,13 +162,12 @@ public class Frame extends JFrame {
                                 "Quitter 2048?", JOptionPane.YES_NO_OPTION) == 0)
                         System.exit(0);
                         break;
-                        
                     case "reset":
                         matrice.init();
                         matrice.generate();
                         matrice.generate();
                         c.repaint();
-                        matrice.save();
+                        matrice.saveinfile();
                         break;
                     default:
                         throw new Exception("BTN NON IMPLEMENTE");

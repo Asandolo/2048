@@ -16,6 +16,7 @@ import org.json.JSONObject;
  */
 public class Matrice{
     private int mat[][];
+    private int  sav[][];
     private final int dim;
     private int win;
     private int best = 0;
@@ -25,9 +26,18 @@ public class Matrice{
         this.win = w;
         
         this.mat = new int[d][d];
+        this.sav = new int[d][d];
     }
     
     public void save(){
+        for (int i = 0; i < this.dim; i++) {
+            for (int j = 0; j < this.dim; j++) {
+                this.sav[i][j] = this.mat[i][j];
+            }
+        }
+    }
+    
+    public void saveinfile(){
         JSONObject o = new JSONObject("{\"score\":0}");
          if(Files.exists(Main.DATAFILE)){
            try{
@@ -69,15 +79,20 @@ public class Matrice{
     }
     
    
-    public void turnMat(){
-        int[][] s = new int[this.dim][this.dim];
+    public void turnMat(int x){
         
-        for (int i = 0; i < this.dim; i++) {
-            for (int j = 0; j < this.dim; j++) {
-                s[i][j] = this.mat[this.dim - j - 1][i];
-            }
+        for (int t = 1; t <=x; t++) {
+            int[][] s = new int[this.dim][this.dim];
+
+                for (int i = 0; i < this.dim; i++) {
+                    for (int j = 0; j < this.dim; j++) {
+                        s[i][j] = this.mat[this.dim - j - 1][i];
+                    }
+                }
+                this.mat = s;    
         }
-        this.mat = s;
+                
+
     } 
     
     public int getBest(){
@@ -88,12 +103,26 @@ public class Matrice{
         return this.dim;
     }
     
-    //TODO A metre en String ASAP
+    
     public void affiche(){
         for (int i = 0; i < this.dim; i++) {
             for (int j = 0; j < this.dim; j++) {
                 if (this.mat[i][j] != 0) {
                     System.out.print(this.mat[i][j]+"|");
+                }else{
+                    System.out.print(" |");                    
+                }
+
+            }
+            System.out.println();
+        }
+    }
+    
+        public void affichesav(){
+        for (int i = 0; i < this.dim; i++) {
+            for (int j = 0; j < this.dim; j++) {
+                if (this.sav[i][j] != 0) {
+                    System.out.print(this.sav[i][j]+"|");
                 }else{
                     System.out.print(" |");                    
                 }
@@ -128,8 +157,21 @@ public class Matrice{
 					}
 				}
 			}
-		}	
+		}
 	}
+        
+        
+        private boolean canGenerate(){
+            for (int i = 0; i < this.dim; i++) {
+                for (int j = 0; j < this.dim; j++) {
+                    if (this.sav[i][j] != this.mat[i][j]) {
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+        }
     
         public void bas(){
 		this.dbas();
@@ -144,6 +186,9 @@ public class Matrice{
 			}
 		}
 		this.dbas();
+           if (this.canGenerate()) {
+             this.generate();
+            }
 	}
   
 
@@ -186,13 +231,13 @@ public class Matrice{
            
            
                    
-           if(this.isComplete() == false){
+           if(this.isComplete()){
+               b = false;
+           }else{
                 if(this.mat[lign][col] == 0){
                     this.setval(x, lign, col);
                     b = false;
                 }
-           }else{
-               b = false;
            }
              
             

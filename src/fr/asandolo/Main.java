@@ -8,6 +8,7 @@ package fr.asandolo;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Scanner;
 import javax.swing.JOptionPane;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,9 +29,11 @@ public class Main {
     }
 
     public Main(){  
-       
+       Scanner sc = new Scanner(System.in);
        int d = -1,w = -1;
        Matrice m = null;
+       boolean q = false;
+       
        
        if(Files.exists(Main.DATAFILE)){
            try{
@@ -85,11 +88,94 @@ public class Main {
            m.init();
            m.generate();
            m.generate();
+           m.affiche();
+           m.save();
        }
-       m.save();
        
        Frame f = new Frame(m);
        f.repaint();
+       while(q==false){
+           char chx = ' ';
+           if (m.iswin()) {
+               System.out.println("Gagner !");
+           }
+           
+           System.out.println("Score : "+m.getscore());
+           
+           do {  
+               
+               try {
+                  System.out.println("Choisisez : H= Haut, B= Bas, G= Gauche, D= Droite Q= Quiter T= Triche R=Reset");
+                   System.out.print(">");
+                   String l = sc.nextLine();
+                   if(l.length()>0) chx = l.charAt(0);                   
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
+               
+           } while (chx != 'D' && chx != 'G' && chx != 'H' && chx != 'B' && chx != 'Q' && chx != 'R' && chx != 'T');
+       
+            
+           switch(chx){
+               case 'H':
+                   m.turnMat(2);
+                   m.save();
+                   m.bas();
+                   m.turnMat(2);
+                   break;
+               case 'B':
+                   m.save();
+                   m.bas();
+                   break;
+               case 'G':
+                   m.turnMat(3);
+                   m.save();
+                   m.bas();
+                   m.turnMat(1);
+                   break;
+               case 'D':
+                   m.turnMat(1);
+                   m.save();
+                   m.bas();
+                   m.turnMat(3);
+                   break;
+               case 'Q':
+                   q = true;
+                   System.exit(0);
+                   break;
+               case 'R':
+                   m.init();
+                   m.generate();
+                   break;
+               case 'T':
+                      int a=0,b=0;
+                      System.out.println("Quel case voulez vous supprimer ?");
+                      try {
+                         System.out.println("Num ligne :");
+                         a = sc.nextInt();
+                                  
+                         System.out.println("Num colone ");
+                         b = sc.nextInt();
+                      } catch (Exception e) {
+                          e.printStackTrace();
+                      }
+                      
+                      m.setval(0, a-1, b-1);                  
+                   break;
+               default:
+                   System.out.println("Erreur :");
+                break;            
+           }
+           m.affichesav();
+           System.out.println("");
+           System.out.println("");
+           m.affiche();
+           m.saveinfile();
+           f.repaint();
+           
+       
+       }
+       m.saveinfile();
        
     }
     
