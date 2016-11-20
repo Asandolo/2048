@@ -118,19 +118,6 @@ public class Matrice{
         }
     }
     
-        public void affichesav(){
-        for (int i = 0; i < this.dim; i++) {
-            for (int j = 0; j < this.dim; j++) {
-                if (this.sav[i][j] != 0) {
-                    System.out.print(this.sav[i][j]+"|");
-                }else{
-                    System.out.print(" |");                    
-                }
-
-            }
-            System.out.println();
-        }
-    }
    
     
     public void setval(int x ,int ligne, int colone){
