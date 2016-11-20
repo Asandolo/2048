@@ -166,9 +166,6 @@ public class Main {
                    System.out.println("Erreur :");
                 break;            
            }
-           m.affichesav();
-           System.out.println("");
-           System.out.println("");
            m.affiche();
            m.saveinfile();
            f.repaint();
